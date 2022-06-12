@@ -305,6 +305,130 @@ xhr.onerror = function(){
 xhr.send(objectDataString)
 ```
 
+```javascript
+// Form 3a Function
+document.getElementById("form_3a_form").addEventListener("submit", (e)=>
+        {
+            e.preventDefault();
+            forma3a();
+        });
+        function forma3a(){
+            let name = document.getElementById('name3').value;
+            let lastname = document.getElementById('lastName3').value;
+            let phone = document.getElementById('phone').value;
+            let gender = document.getElementById('gender').value;
+            let dob = document.getElementById('dob').value;
+            let identifier = document.getElementById('document').value;
+            let fhir_id_patient = document.getElementById('fhir_id_patient3a').value;
+            let objectData = {
+            name : name,
+            lastname : lastname,
+            use : 'official',
+            phone : phone,
+            gender : gender,
+            dob : dob,
+            identifier : identifier,
+            fhir_id_patient : fhir_id_patient 
+            };
+            console.log(objectData);
+            let objectDataString = JSON.stringify(objectData);
+            // url
+            let url = 'https://app-ryjgytpm5q-uc.a.run.app/api/consultas/fhir/v1/Patient/upsert3a'
+            // xhr req
+            let xhr = new XMLHttpRequest();
+            xhr.responseType = 'json';
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-Type','application/json');
+            xhr.onload = function(){
+            if(xhr.status == 200){
+                var jsonResponse = xhr.response;
+                console.log(jsonResponse)
+                let patient = jsonResponse['fhir_id_patient']
+                let respuesta = '';
+                respuesta += `
+                    <div>
+                        <ul>
+                            <li>
+                                <h3>
+                                Nombre: ${patient['name'][0]['given']}
+                                </h3>
+                            </li>
+                            <li>
+                                <h4>
+                                Apellido: ${patient['name'][0]['family']}
+                                </h4>
+                            </li>
+                            <li>
+                                <h4>
+                                Tipo de Nombre: ${patient['name'][0]['use']}
+                                </h4>
+                            </li>
+                            <li>
+                                <h4>
+                                    Dirección: 
+                                    ${patient['address'][0]['line'][0]},
+                                    ${patient['address'][0]['district']},
+                                    ${patient['address'][0]['city']}
+                                    ${patient['address'][0]['country']}
+                                </h4>
+                            </li>
+                            <li>
+                                <h4>
+                                    Tipo de Dirección: 
+                                    ${patient['address'][0]['type']},
+                                    ${patient['address'][0]['use']}
+                                </h4>
+                            </li>
+                            <li>
+                                <h4>
+                                    Telefono: ${patient['telecom'][0]['value']} (${patient['telecom'][0]['use']} - ${patient['telecom'][0]['system']})
+                                </h4>
+                            </li>
+                            <li>
+                                <h4>
+                                    Email: ${patient['telecom'][2]['value']} (${patient['telecom'][2]['use']})
+                                </h4>
+                            </li>
+                            <li>
+                                <h4>
+                                    CIP/Pasaporte: ${patient['identifier'][0]['value']} (${patient['identifier'][0]['type']['text']})
+                                </h4>
+                            </li>
+                            <li>
+                                <h4>
+                                    Fecha de Nacimiento: ${patient['birthDate']}
+                                </h4>
+                            </li>
+                            <li>
+                                <h4>
+                                    Sexo: ${patient['gender']}
+                                </h4>
+                            </li>
+                            <li>
+                                <h4>
+                                    Idioma: ${patient['communication'][0]['language']['coding'][0]['display']}
+                                    , codigo: {${patient['communication'][0]['language']['coding'][0]['code']}}
+                                </h4>
+                            </li>
+                            <li>
+                                <h4>
+                                    Manejo de datos clinicos por:
+                                    ${patient['managingOrganization']['display']}
+                                </h4>
+                            </li>
+                        </ul>
+                    </div>
+                    ` ; 
+                document.getElementById('target').innerHTML = respuesta;
+                };
+            };
+            xhr.onerror = function(){
+                console.log('error en forma 3A')
+            };
+            xhr.send(objectDataString);
+        };
+```
+
 #### **upsert** the new data in FHIR and the application database
 
 ---
