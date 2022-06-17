@@ -453,20 +453,40 @@ document.getElementById("form_3a_form").addEventListener("submit", (e)=>
 
 ### Base Form
 - URL: [Forma de perfil (Paciente)](https://consultas-panama.web.app/#/patients/settings)
-- inputs: 10
-- FHIR inputs: 6
+- inputs: 29
+- FHIR inputs: 12
 
 | FHIR | Input /Placeholder | id/name     | Required   | objectData |
 | ---- | ------------------ | ----------- |-----------|----------- |
+|  🔥  |  email            | email        | true      | emal       |
 |  🔥  |  Nombre            | name        | true      | name       |
 |  🔥  |  Apellido          | lastName    | true      | lastname   |
-|  🔥  |  Numero de contacto| phone       | true      | name       |
+|  🔥  |  Número de contacto| phone       | true      | name       |
 |      |  Nacionalidad (+)     | nationality |true       |         |
 |  🔥  |  Género            | gender      | true      | gender       |
 |      |  Grupo Sanguíneo   | bloodType   | false     |            |
 |  🔥  |  Nacimiento        | dob         | true      | dob       |
 |  🔥  |  Cédula o pasaporte | document   | true      | identifier       |
 |      |  Cédula o pasaporte(++) | file    | true      |            |
+|  🔥  |  grado            | degree        | false      | degree       |
+|  🔥  |  Universidad/Instituto  | issuer        | false      | issuer       |
+|  🔥  |  culminación            | periodEnd        | false      | periodEnd       |
+|      |  Diploma            | file        | true      |        |
+|  🔥  |  Especialidad            | name        | false      | degreeEsp       |
+|      |  Años de experiencia            | Años de experiencia        | true      |        |
+|      |  Aseguradoras afiliadas            | Aseguradoras afiliadas        | false      |        |
+|      |  Idiomas que maneja            | Idiomas que maneja        | false      |        |
+|      |  ¿Dónde atiende fisicamente?            | ¿Dónde atiende fisicamente?        | false      |        |
+|  🔥 |  Número de idoneidad | ngi        | true      |   ngi     |
+|      |  Certificado de idoneidad            | file        | true      |        |
+|      |  Sello             | file        | false      |        |
+|      |  Firma digital     | file        | false      |        |
+|      |  Curriculum        | file    | false      |        |
+|      |  Grátis            | Grátis        | false      |        |
+|      |  Precio            | Precio        | false     |        |
+|      |  Número de cuenta | Número de cuenta        | false      |        |
+|      |  Banco            | Banco        | false      |        |
+|      |  Tipo de cuenta            | Tipo de cuenta        | false      |        |
 
 (+) Nationality or country of residence?  
 (++) Change placeholder [duplicated]: Cédula o pasaporte ▶ Foto de cédula o pasaporte 
